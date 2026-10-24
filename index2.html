@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ug" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENGLISH HUB // ئىنگىلىز تىلى ئۆگىنىش سۇپىسى</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --accent-green: #22c55e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-glow: rgba(56, 189, 248, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            line-height: 1.6;
+            padding-bottom: 3rem;
+        }
+
+        /* Header Layout */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .level-badge {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            gap: 2rem;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .card-header {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.6rem;
+        }
+
+        /* Interactive Flashcard Section */
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .flashcard {
+            width: 100%;
+            max-width: 450px;
+            height: 240px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 16px;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: var(--accent-blue);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #3b0764, #1e1b4b);
+            color: var(--accent-purple);
+            transform: rotateY(180deg);
+        }
+
+        .word-en {
+            font-size: 2.2rem;
+            font-weight: bold;
+            direction: ltr;
+            letter-spacing: 1px;
+        }
+
+        .phonetic {
+            font-size: 1rem;
+            color: var(--text-sub);
+            margin-top: 5px;
+            direction: ltr;
+        }
+
+        .word-ug {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent-blue), #0284c7);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .btn-audio {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .btn-audio:hover {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        /* Grid Layout for Modules */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Daily Phrases Table */
+        .phrase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .phrase-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .phrase-en {
+            direction: ltr;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .phrase-ug {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+        }
+
+        /* Quiz Box */
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .quiz-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .quiz-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            🎓 ENGLISH_ACADEMY
+        </div>
+        <div class="level-badge">
+            دەۋرىيلىك: B1 Intermediate
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Banner -->
+        <div class="glass-card" style="text-align: center;">
+            <h1 style="font-size: 2rem; margin-bottom: 10px; background: linear-gradient(135deg, #fff, var(--text-sub)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                ئىنگىلىز تىلىنى زامانىۋى ئۇسۇلدا ئۆگىنىڭ
+            </h1>
+            <p style="color: var(--text-sub);">
+                سۆزلەرنى كۆرۈپلا قالماي، ئاۋازىنى ئاڭلاپ، ئىنتېراكپىك كۆنۈكمىلەر ئارقىلىق پىششىقلاڭ.
+            </p>
+        </div>
+
+        <!-- Section 1: Flashcard & Audio -->
+        <div class="glass-card">
+            <div class="card-header">
+                🎴 كۈندىلىك يېڭى سۆزلەر (Flashcard)
+            </div>
+            <div class="flashcard-container">
+                
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="flashcard-inner">
+                        <div class="card-front">
+                            <div class="word-en" id="card-en">Persistence</div>
+                            <div class="phonetic" id="card-phonetic">/pərˈsɪstəns/</div>
+                            <div style="margin-top: 15px; font-size: 0.8rem; color: var(--text-sub);">(ئۆرىرىش ئۈچۈن بېسىڭ)</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="word-ug" id="card-ug">ئىزچىللىق / چىدامچانلىق</div>
+                            <div style="margin-top: 10px; font-size: 0.85rem; color: #d8b4fe;">مىسال: Success requires persistence.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-audio" onclick="speakWord()">🔊 ئوقۇپ بەر</button>
+                    <button class="btn" onclick="nextCard()">كېيىنكى سۆز ➔</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Section 2: Phrases & Quiz -->
+        <div class="grid-2">
+            
+            <!-- Daily Phrases -->
+            <div class="glass-card">
+                <div class="card-header">
+                    💬 كۈندىلىك ئىشلىتىلىدىغان جۈملىلەر
+                </div>
+                <div class="phrase-list">
+                    <div class="phrase-item">
+                        <div>
+                            <div class="phrase-en">Never give up on your dreams.</div>
+                            <div class="phrase-ug">ئارزۇلىرىڭىزدىن ھەرگىز ۋاز كەچمەڭ.</div>
+                        </div>
+                        <button class="btn btn-audio" style="padding: 5px 10px; font-size: 0.8rem;" onclick="speakText('Never give up on your dreams.')">🔊</button>
+                    </div>
+                    <div class="phrase-item">
+                        <div>
+                            <div class="phrase-en">Practice makes perfect.</div>
+                            <div class="phrase-ug">كۆپ كۆنۈكمە قىلسا، پىشىپ يېتىلىسىز.</div>
+                        </div>
+                        <button class="btn btn-audio" style="padding: 5px 10px; font-size: 0.8rem;" onclick="speakText('Practice makes perfect.')">🔊</button>
+                    </div>
+                    <div class="phrase-item">
+                        <div>
+                            <div class="phrase-en">Action speaks louder than words.</div>
+                            <div class="phrase-ug">ئەمەلىي ھەرىكەت سۆزدىن ئۈستۈندۇر.</div>
+                        </div>
+                        <button class="btn btn-audio" style="padding: 5px 10px; font-size: 0.8rem;" onclick="speakText('Action speaks louder than words.')">🔊</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mini Interactive Quiz -->
+            <div class="glass-card">
+                <div class="card-header">
+                    🧩 زەربىدار تېست (Quick Quiz)
+                </div>
+                <p id="quiz-question" style="font-weight: bold; margin-bottom: 10px; direction: ltr; text-align: left;">
+                    What is the synonym of "Success"?
+                </p>
+                <div class="quiz-options" id="quiz-options">
+                    <button class="quiz-btn" onclick="checkAnswer(false, this)">Failure</button>
+                    <button class="quiz-btn" onclick="checkAnswer(true, this)">Achievement</button>
+                    <button class="quiz-btn" onclick="checkAnswer(false, this)">Delay</button>
+                    <button class="quiz-btn" onclick="checkAnswer(false, this)">Problem</button>
+                </div>
+                <div id="quiz-result" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 ENGLISH_HUB | زامانىۋى تور تەتقىقاتى ئۈچۈن لاھىيەلەندى</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        /* --- Words Dataset --- */
+        const words = [
+            { en: "Persistence", phonetic: "/pərˈsɪstəns/", ug: "ئىزچىللىق / چىدامچانلىق" },
+            { en: "Ambition", phonetic: "/æmˈbɪʃ.ən/", ug: "ئۇلۇغ تەنتەكلىك / ئارزۇ-ئارمان" },
+            { en: "Innovation", phonetic: "/ˌɪn.əˈveɪ.ʃən/", ug: "يېڭىلىق يارىتىش" },
+            { en: "Curiosity", phonetic: "/ˌkjʊər.iˈɒs.ə.ti/", ug: "قىزىقسىنىش / قىزىقىش" },
+            { en: "Knowledge", phonetic: "/ˈnɒl.ɪdʒ/", ug: "بىلىم / ئىلمىي بىلىم" }
+        ];
+
+        let currentIndex = 0;
+
+        function updateCard() {
+            const card = document.getElementById('flashcard');
+            card.classList.remove('flipped');
+            
+            setTimeout(() => {
+                document.getElementById('card-en').innerText = words[currentIndex].en;
+                document.getElementById('card-phonetic').innerText = words[currentIndex].phonetic;
+                document.getElementById('card-ug').innerText = words[currentIndex].ug;
+            }, 200);
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % words.length;
+            updateCard();
+        }
+
+        /* --- Text To Speech (Audio) --- */
+        function speakWord() {
+            const text = words[currentIndex].en;
+            speakText(text);
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // A bit slower for learning
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('كۆپۈتېرىڭىز ئاۋازلىق ئوقۇشنى قوللىمىدى.');
+            }
+        }
+
+        /* --- Quiz Logic --- */
+        function checkAnswer(isCorrect, btn) {
+            const resultDiv = document.getElementById('quiz-result');
+            const allBtns = document.querySelectorAll('.quiz-btn');
+
+            allBtns.forEach(b => {
+                b.style.background = 'rgba(255, 255, 255, 0.05)';
+                b.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+
+            if (isCorrect) {
+                btn.style.background = 'rgba(34, 197, 94, 0.3)';
+                btn.style.borderColor = 'var(--accent-green)';
+                resultDiv.style.color = 'var(--accent-green)';
+                resultDiv.innerHTML = '✔ ئاپىرىن! توغرا جاۋاب بەردىڭىز.';
+            } else {
+                btn.style.background = 'rgba(239, 68, 68, 0.3)';
+                btn.style.borderColor = '#ef4444';
+                resultDiv.style.color = '#ef4444';
+                resultDiv.innerHTML = '✖ خاتا بولۇپ قالدى، قايتا سىناپ كۆرۈڭ!';
+            }
+        }
+    </script>
+</body>
+</html>
