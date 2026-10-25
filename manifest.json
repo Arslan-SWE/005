@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "IT سۆزلۈك",
+  "version": "1.0.0",
+  "description": "ھەر كۈنى 5 دانە IT ئىنگلىزچە سۆز: ئاۋاز، ئۇيغۇرچە تەرجىمە، مەشىق ۋە ئىمتىهان. پۈتۈنلەي يەرلىك.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "IT سۆزلۈك",
+    "default_icon": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "permissions": ["storage"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'"
+  }
+}
